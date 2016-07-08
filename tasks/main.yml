@@ -47,20 +47,22 @@
     -F {{ ssh_config_file }}
     {{ sshfs_ssh_hostname }} echo {{ sshfs_return_msg }} 2>/dev/null
   when: >
-    ssh_config_dir is defined
+    sshfs_active is defined 
+    and sshfs_active == true
+    and ssh_config_dir is defined
     and ssh_config_file is defined
     and sshfs_ssh_hostname is defined
     and sshfs_ssh_options is defined
-    and sshfs_active == true
   register: ssh_connections_debug
   ignore_errors: yes
 
-- name: sshfs | Show - debug ssh connections
+- name: sshfs | Show ssh connections
   debug: 
     msg: "{{ ssh_connections_debug }}"
   when: >
     sshfs_debug is defined 
     and sshfs_debug == true
+    and ssh_connections_debug is defined
     and ssh_connections_debug.stdout.find(sshfs_return_msg) != -1
 
 - name: sshfs | Add supervisor configuration.
@@ -78,13 +80,12 @@
         {{ sshfs_ssh_hostname }}:{{ sshfs_ssh_directory }}
         {{ sshfs_base_directory }}/{{ sshfs_ssh_hostname }}/{{ sshfs_mount_directory }} 
         -F {{ ssh_config_file }} -f
-
   notify: sshfs - notify | Restart supervisor sshfs
   when: >
     ssh_connections_debug is defined
     and ssh_connections_debug.stdout.find(sshfs_return_msg) != -1
 
-- name: sshfs | Reload supervisor file
+- name: sshfs | Update supervisor program
   supervisorctl: 
     name: "{{ sshfs_supervisor_name }}_{{ sshfs_ssh_hostname }}"
     state: present
