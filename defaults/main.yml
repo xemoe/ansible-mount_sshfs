@@ -1,0 +1,15 @@
+---
+sshfs_base_directory: /mnt/sshfs
+sshfs_mount_type: sshfs
+sshfs_mount_directory: sshfs
+sshfs_mount_options: []
+sshfs_ssh_hostname: ""
+sshfs_ssh_directory: ""
+sshfs_ssh_options: []
+sshfs_active: false
+
+sshfs_file_owner: root
+sshfs_file_mode: 0700
+sshfs_return_msg: "yes"
+
+sshfs_supervisor_name: supervisor_sshfs

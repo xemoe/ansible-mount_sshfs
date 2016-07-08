@@ -1,0 +1,5 @@
+---
+- name: sshfs - notify | Restart supervisor sshfs
+  supervisorctl: 
+    name: "{{ sshfs_supervisor_name }}_{{ sshfs_ssh_hostname }}"
+    state: restarted

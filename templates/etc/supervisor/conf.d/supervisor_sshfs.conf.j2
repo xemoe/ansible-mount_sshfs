@@ -1,0 +1,7 @@
+[program:{{ item.supervisor_program_name }}]
+command = {{ item.supervisor_program_cmd }}
+stdout_logfile = /var/log/supervisor/{{ item.supervisor_program_name }}_out.log
+stderr_logfile = /var/log/supervisor/{{ item.supervisor_program_name }}_err.log
+autostart = true
+autorestart = true
+
