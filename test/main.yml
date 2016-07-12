@@ -1,0 +1,10 @@
+---
+- name: testing::mount_sshfs
+  hosts: mainbox
+  become: yes
+  vars_files:
+    - ssh_config.yml
+    - sshfs_mainbox.yml
+  roles:
+    - role: xemoe.mount_sshfs
+

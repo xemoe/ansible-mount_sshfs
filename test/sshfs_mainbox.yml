@@ -1,0 +1,7 @@
+---
+sshfs_mount_directory: logs
+sshfs_ssh_hostname: mainbox
+sshfs_ssh_directory: /var/log
+sshfs_ssh_options: "{{ ssh_config_hosts[sshfs_ssh_hostname] }}"
+sshfs_active: true
+sshfs_debug: true
