@@ -9,7 +9,7 @@ sshfs_ssh_options: []
 sshfs_active: false
 
 sshfs_file_owner: root
-sshfs_file_mode: 0700
+sshfs_file_mode: 0755
 sshfs_return_msg: "yes"
 
 sshfs_supervisor_name: supervisor_sshfs
