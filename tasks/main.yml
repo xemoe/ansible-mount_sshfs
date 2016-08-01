@@ -34,8 +34,7 @@
   when: >
     sshfs_active is defined 
     and sshfs_active == true
-    and check_host_file_directory.stat.isdir is defined 
-    and not check_host_file_directory.stat.isdir
+    and check_host_file_directory.stat.exists == false
 
 - name: sshfs | Validate ssh connections
   shell: >
@@ -93,4 +92,11 @@
     ssh_connections_debug is defined
     and ssh_connections_debug.stdout.find(sshfs_return_msg) != -1
 
+- name: sshfs | Start supervisor program
+  supervisorctl: 
+    name: "{{ sshfs_supervisor_name }}_{{ sshfs_ssh_hostname }}"
+    state: started
+  when: >
+    ssh_connections_debug is defined
+    and ssh_connections_debug.stdout.find(sshfs_return_msg) != -1
 

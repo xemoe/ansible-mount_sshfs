@@ -23,6 +23,9 @@ describe "Tasks spec" do
               it { should be_file }
         end
     end
+    describe service('supervisor') do
+          it { should be_running }
+    end
     describe service("#{supervisor_program}") do
           it { should be_running.under('supervisor') }
     end
